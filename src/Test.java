@@ -108,7 +108,7 @@ public class Test {
 				System.out.println("\n**Task With Selected Number Doesn't Exist!**");
 				continue;
 			}
-			taskList.setTaskStatusDone(task);
+			taskList.setTaskStatusNotDone(task);
 			
 			
 		} while (task == null);
@@ -122,11 +122,11 @@ public class Test {
 			System.out.println("\n**There Are No Active Tasks**");
 			return;
 		}
-		taskList.checkActiveTasks();
 		
 		int choice;
 		do {
 			
+			taskList.checkActiveTasks();
 			System.out.print("____________________\n\n"
 					+ "--OPTIONS--\n\n"
 					+ "1. Mark As Done\n"
@@ -167,11 +167,11 @@ public class Test {
 			System.out.println("\n**There Are No Finished Tasks**");
 			return;
 		}
-		taskList.checkFinishedTasks();
 		
 		int choice;
 		do {
 			
+			taskList.checkFinishedTasks();
 			System.out.print("____________________\n\n"
 					+ "--OPTIONS--\n\n"
 					+ "1. Mark As Not Done\n"

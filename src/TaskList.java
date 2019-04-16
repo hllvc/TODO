@@ -58,7 +58,7 @@ public class TaskList {
 	}
 	
 	public Task findTask(int number) {
-		if (number > taskList.size() || number < taskList.size())
+		if (number > taskList.size() || number < 1)
 			return null;
 		else
 			number--;
