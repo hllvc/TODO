@@ -8,44 +8,21 @@ public class Test {
 	private static TaskList taskList;
 	private static Task task;
 	
-	private static void mainMenuTxt() {
-		
-		System.out.print("____________________\n\n"
-				+ "---MAIN MENU---\n\n"
-				+ "1. Create Task List\n"
-				+ "2. Pick Existing\n"
-				+ "3. Remove Task List\n\n"
-				+ "0. Exit\n\n"
-				+ "Your Choice: ");
-		
-	}
-	
-	private static void taskListMenuTxt() {
-		
-		System.out.print("____________________\n\n"
-				+ "---TASK LIST MENU---\n\n"
-				+ "1. Create New Task\n"
-				+ "2. Active Tasks\n"
-				+ "3. Finished Tasks\n"
-				+ "4. All Tasks\n\n"
-				+ "0. Return\n\n"
-				+ "Your Choice: ");
-		
-	}
+	final private static String YES = "yes";
+	final private static String NO = "no";
 	
 	private static void createNewTask() {
 		
-		System.out.print("____________________\n\n"
-				+ "--CREATE NEW TASK--\n\n");
+		AllTxt.newTask();
 		String newTask;
 		task = null;
 		do {
 			
-			System.out.print("Task Name: ");
+			AllTxt.taskName();
 			newTask = input.nextLine();
 			task = taskList.findTask(newTask);
 			if (task != null)
-				System.out.println("\n**Task With Entered Name Already Existing!**");
+				AllTxt.nameError();
 			
 		} while (task != null);
 		task = new Task(newTask);
@@ -59,11 +36,11 @@ public class Test {
 		do {
 			
 			task = null;
-			System.out.print("\nType Number Of Task You Want To Remove: ");
+			AllTxt.numberChoice();
 			number = input.nextInt();
 			task = taskList.findTask(number);
 			if (task == null) {
-				System.out.println("\n**Task With Selected Number Doesn't Exist!**");
+				AllTxt.doesntExist();
 				continue;
 			}
 			taskList.removeTask(task);
@@ -80,11 +57,11 @@ public class Test {
 		do {
 			
 			task = null;
-			System.out.print("\nType Number Of Task You Want To Mark As Done: ");
+			AllTxt.numberChoice();
 			number = input.nextInt();
 			task = taskList.findTask(number);
 			if (task == null) {
-				System.out.println("\n**Task With Selected Number Doesn't Exist!**");
+				AllTxt.doesntExist();
 				continue;
 			}
 			taskList.setTaskStatusDone(task);
@@ -101,11 +78,11 @@ public class Test {
 		task = null;
 		do {
 			
-			System.out.print("\nType Number Of Task You Want To Mark As Not Done: ");
+			AllTxt.numberChoice();
 			number = input.nextInt();
 			task = taskList.findTask(number);
 			if (task == null) {
-				System.out.println("\n**Task With Selected Number Doesn't Exist!**");
+				AllTxt.doesntExist();
 				continue;
 			}
 			taskList.setTaskStatusNotDone(task);
@@ -119,7 +96,7 @@ public class Test {
 	private static void activeTasks() {
 		
 		if (!taskList.checkIfHasActive()) {
-			System.out.println("\n**There Are No Active Tasks**");
+			AllTxt.noActiveTask();
 			return;
 		}
 		
@@ -127,12 +104,7 @@ public class Test {
 		do {
 			
 			taskList.checkActiveTasks();
-			System.out.print("____________________\n\n"
-					+ "--OPTIONS--\n\n"
-					+ "1. Mark As Done\n"
-					+ "2. Remove Task\n\n"
-					+ "0. Return\n\n"
-					+ "Your Choice: ");
+			AllTxt.optionsList();
 			choice = input.nextInt();
 			
 			switch (choice) {
@@ -153,7 +125,7 @@ public class Test {
 				
 			default:
 				if (choice != 0)
-					System.out.println("\n**Selected Option Is Not Available**");
+					AllTxt.optionNotAvailable();
 				break;
 		
 			}
@@ -164,7 +136,7 @@ public class Test {
 	private static void finishedTasks() {
 		
 		if (!taskList.checkIfHasFinished()) {
-			System.out.println("\n**There Are No Finished Tasks**");
+			AllTxt.noFinishedTask();
 			return;
 		}
 		
@@ -172,12 +144,7 @@ public class Test {
 		do {
 			
 			taskList.checkFinishedTasks();
-			System.out.print("____________________\n\n"
-					+ "--OPTIONS--\n\n"
-					+ "1. Mark As Not Done\n"
-					+ "2. Remove Task\n\n"
-					+ "0. Return\n\n"
-					+ "Your Choice: ");
+			AllTxt.optionsList();
 			choice = input.nextInt();
 			
 			switch (choice) {
@@ -198,7 +165,7 @@ public class Test {
 				
 			default:
 				if (choice != 0)
-					System.out.println("\n**Selected Option Is Not Available**");
+					AllTxt.optionNotAvailable();
 				break;
 		
 			}
@@ -210,23 +177,16 @@ public class Test {
 	private static void allTasks() {
 		
 		if (taskList.checkIfEmpty()) {
-			System.out.println("\n**There Are No Created Tasks**");
+			AllTxt.noCreatedTask();
 			return;
 		}
 		
 		int choice;
 		do {
 			
-			System.out.print("____________________\n\n"
-					+ "--ALL TASKS--\n\n");
+			AllTxt.allTask();
 			taskList.listOfAllTasks();
-			System.out.print("____________________\n\n"
-					+ "--OPTIONS--\n\n"
-					+ "1. Mark As Done\n"
-					+ "2. Mark As Not Done\n"
-					+ "3. Remove Task\n\n"
-					+ "0. Return\n\n"
-					+ "Your Choice: ");
+			AllTxt.optionsList();
 			choice = input.nextInt();
 			
 			switch (choice) {
@@ -250,7 +210,7 @@ public class Test {
 				
 			default:
 				if (choice != 0)
-					System.out.println("\n**Selected Option Is Not Available**");
+					AllTxt.optionNotAvailable();
 				break;
 		
 			}
@@ -261,24 +221,23 @@ public class Test {
 	
 	private static void createTaskList() {
 		
-		System.out.print("____________________\n\n"
-				+ "--CREATE TASK LIST--\n\n");
+		AllTxt.createTask();
 		String newTaskList;
 		do {
 			
 			taskList = null;
-			System.out.print("Task List Name: ");
+			AllTxt.taskListName();
 			newTaskList = input.nextLine();
 			for (TaskList tL: tasksList)
 				if (newTaskList.equals(tL.getName()))
 					taskList = tL;
 			if (taskList != null)
-				System.out.println("\n**Task List With Entered Name Already Existing!**\n");
+				AllTxt.existingTaskList();
 			
 		} while (taskList != null);
 		taskList = new TaskList(newTaskList);
 		tasksList.add(taskList);
-		System.out.println("\n**Successfully Created New Task List!**");
+		AllTxt.successfullyCreated();
 		
 	}
 	
@@ -287,7 +246,7 @@ public class Test {
 		byte choice;
 		do {
 			
-			taskListMenuTxt();
+			AllTxt.taskListMenuTxt();
 			choice = input.nextByte();
 			
 			switch (choice) {
@@ -313,7 +272,7 @@ public class Test {
 				
 			default:
 				if (choice != 0)
-					System.out.println("\n**Selected Option Is Not Available**");
+					AllTxt.optionNotAvailable();
 				break;
 			
 			}
@@ -325,19 +284,20 @@ public class Test {
 	private static void pickExisting() {
 		
 		if (tasksList.isEmpty()) {
-			System.out.println("\n**There Are No Created Task Lists**");
+			AllTxt.noCreatedTaskList();
 			return;
 		}
-		System.out.print("____________________\n"
-				+ "--PICK FROM THE LIST--\n\n"
-				+ "All Task Lists:\n\n");
-		for (TaskList tL: tasksList)
-			System.out.println((tasksList.indexOf(tL) + 1) + ". " + tL.getName() + " - Active Tasks: " + tL.activeTasks());
+		AllTxt.pickFromList();
+		for (TaskList tL: tasksList) {
+			System.out.print((tasksList.indexOf(tL) + 1) + ". " + tL.getName());
+			AllTxt.activeTask();
+			System.out.println(tL.activeTasks());
+		}
 		int number;
 		do {
 			
 			taskList = null;
-			System.out.print("\nType Number Of List You Want To Access: ");
+			AllTxt.numberChoice();
 			number = input.nextInt();
 			number--;
 			for (TaskList tL: tasksList)
@@ -346,7 +306,7 @@ public class Test {
 					break;
 				}
 			if (taskList == null)
-				System.out.println("\n**Task List With Entered Name Doesn't Exist!**");
+				AllTxt.nameError();
 			
 		} while (taskList == null);
 		taskListMenu();
@@ -355,19 +315,19 @@ public class Test {
 	
 	private static boolean yesOrNo() {
 		
-		System.out.print("\nAre You Sure You Want To Remove Selected??\nAll Data Will Be Lost!**\n\n");
+		AllTxt.removeSelected();
 		String choice;
 		do {
 			
-			System.out.print("Your Choice (yes/no): ");
+			AllTxt.pickChoice();
 			choice = input.nextLine();
-			if (choice.equals("yes") || choice.equals("no"))
+			if (choice.equals(YES) || choice.equals(NO))
 				break;
 			else
-				System.out.println("\n**Wrong Input**\n");
+				AllTxt.wrongInput();
 			
-		} while (!(choice.equals("yes")) || !(choice.equals("no")));
-		if (choice.equals("yes"))
+		} while (!(choice.equals(YES)) || !(choice.equals(NO)));
+		if (choice.equals(YES))
 			return true;
 		else
 			return false;
@@ -377,19 +337,20 @@ public class Test {
 	private static void removeTaskList() {
 		
 		if (tasksList.isEmpty()) {
-			System.out.println("\n**There Are No Created Task Lists**");
+			AllTxt.noCreatedTaskList();
 			return;
 		}
-		System.out.print("____________________\n"
-				+ "--PICK FROM THE LIST--\n\n"
-				+ "All Task Lists:\n\n");
-		for (TaskList tL: tasksList)
-			System.out.println((tasksList.indexOf(tL) + 1) + ". " + tL.getName() + " - Active Tasks: " + tL.activeTasks());
+		AllTxt.pickFromList();
+		for (TaskList tL: tasksList) {
+			System.out.print((tasksList.indexOf(tL) + 1) + ". " + tL.getName());
+			AllTxt.activeTask();
+			System.out.println(tL.activeTasks());
+		}
 		int number;
 		do {
 			
 			taskList = null;
-			System.out.print("\nType Number Of List You Want To Access: ");
+			AllTxt.numberChoice();
 			number = input.nextInt();
 			number--;
 			for (TaskList tL: tasksList)
@@ -398,12 +359,12 @@ public class Test {
 					break;
 				}
 			if (taskList == null)
-				System.out.println("\n**Task List With Entered Name Doesn't Exist!**");
+				AllTxt.nameError();
 			
 		} while (taskList == null);
 		input.nextLine();
 		if (yesOrNo()) {
-			System.out.println("\n**Task List Successfully Removed**\n");
+			AllTxt.removedTaskList();
 			tasksList.remove(taskList);
 		} else
 			return;
@@ -415,7 +376,7 @@ public class Test {
 		byte choice;
 		do {
 			
-			mainMenuTxt();
+			AllTxt.mainMenuTxt();
 			choice = input.nextByte();
 			
 			switch (choice) {
@@ -437,13 +398,13 @@ public class Test {
 				
 			default:
 				if (choice != 0)
-					System.out.println("\n**Selected Option Is Not Available**");
+					AllTxt.optionNotAvailable();
 				break;
 			
 			}
 			
 		} while (choice != 0);
-		System.out.println("\n**You Have Exited TODO Manager**");
+		AllTxt.exit();
 		
 	}
 	
